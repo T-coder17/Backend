@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins="https://app-dummy123.herokuapp.com")
 public class StudentController {
 
     @Autowired
@@ -29,30 +29,30 @@ public class StudentController {
     @GetMapping("/listStudents")
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
-    } // Select * from student;
+    }
 
     // Get the student information
     @GetMapping("/student/{id}")
     public Student getStudent(@PathVariable Integer id) {
         return studentRepository.findById(id).get();
-    } // Select * from student where id=?
+    }
 
     // Delete the student
-    @DeleteMapping("/student/{id}") // delete from student where id=?
+    @DeleteMapping("/student/{id}")
     public List<Student> deleteStudent(@PathVariable Integer id) {
         studentRepository.delete(studentRepository.findById(id).get());
         return studentRepository.findAll();
     }
 
     // Add new student
-    @PostMapping("/student") // insert into student values(?, ?, ?)
+    @PostMapping("/student")
     public List<Student> addStudent(@RequestBody Student student) {
         studentRepository.save(student);
         return studentRepository.findAll();
     }
 
     // Update the student information
-    @PutMapping("/student/{id}") // update table student set name=? where id=?
+    @PutMapping("/student/{id}")
     public List<Student> updateStudent(@RequestBody Student student, @PathVariable Integer id) {
         Student studentObj = studentRepository.findById(id).get();
         studentObj.setName(student.getName());
